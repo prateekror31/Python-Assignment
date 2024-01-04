@@ -1,48 +1,41 @@
+#task 3:MYSQL Database operations with Python
+#creating a database
+
 import mysql.connector
-conn=mysql.connector.connect(host='localhost',password='gagan123',user='root')
- 
-cursor = conn.cursor()
-cursor.execute("""
-    use studentdata
-    
-""")
- 
-cursor.execute("""
-    CREATE TABLE students (
-        student_id INT AUTO_INCREMENT PRIMARY KEY,
-        first_name VARCHAR(255),
-        last_name VARCHAR(255),
-        age INT,
-        grade FLOAT
-    )
-""")
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="Prateek@8979",
+  database="mydatabase"
+)
+mycursor = mydb.cursor()
+mycursor.execute("CREATE DATABASE mydatabase")
 
-# Insert a new student record
-cursor.execute("""
-    INSERT INTO students (first_name, last_name, age, grade)
-    VALUES (%s, %s, %s, %s)
-""", ("Alice", "Smith", 18, 95.5))
+#creating a table
+mycursor.execute("CREATE TABLE Students ( Student_id int PRIMARY KEY, First_name VARCHAR(30), Last_name VARCHAR(30), Age INT,Grade INT)")
 
-# Update the grade of the student with the first name "Alice"
-cursor.execute("""
-    UPDATE students
-    SET grade = %s
-    WHERE first_name = %s
-""", (97.0, "Alice"))
+#inserting the data into table
 
-# Delete the student with the last name "Smith"
-cursor.execute("""
-    DELETE FROM students
-    WHERE last_name = %s
-""", ("Smith",))
+data = "INSERT INTO Students (Student_id, First_name, Last_name, Age, Grade) VALUES (%s, %s, %s, %s, %s)"
+val = ("1", "Alice","Smith","18","95.5")
+mycursor.execute(data, val)
+mydb.commit()
 
-# Fetch and display all student records
-cursor.execute("SELECT * FROM students")
-students = cursor.fetchall()
+#updating the grade of the student with  first name alice
 
-for student in students:
-    print(student)
+data = "UPDATE Students SET Grade = '97' WHERE First_name = 'Alice'"
+mycursor.execute(data)
+mydb.commit()
 
-# Commit and close the connection
-conn.commit()
-conn.close()
+#deleting the student with last name smith
+
+data = "DELETE FROM Students WHERE Last_name = 'Smith'"
+mycursor.execute(data)
+mydb.commit()
+
+#fetch and display all student records
+
+mycursor.execute("SELECT * FROM Students")
+final = mycursor.fetchall()
+for x in final:
+    print(x)
