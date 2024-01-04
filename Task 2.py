@@ -1,8 +1,6 @@
 # Program to display the Fibonacci sequence up to n-th term
 
 n = int(input("Enter a no "))
-
-# first two terms
 n1, n2 = 0, 1
 count = 0
 
