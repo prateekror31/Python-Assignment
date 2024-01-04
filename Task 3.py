@@ -6,12 +6,17 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   password="Prateek@8979",
-  database="mydatabase"
 )
 mycursor = mydb.cursor()
 mycursor.execute("CREATE DATABASE mydatabase")
 
 #creating a table
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="Prateek@8979",
+  database="mydatabase"
 mycursor.execute("CREATE TABLE Students ( Student_id int PRIMARY KEY, First_name VARCHAR(30), Last_name VARCHAR(30), Age INT,Grade INT)")
 
 #inserting the data into table
